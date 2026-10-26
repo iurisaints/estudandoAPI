@@ -1,0 +1,12 @@
+{
+  "name": "estudando-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CRUD de produtos e categorias para estudar API, com o código de cada ação na tela.",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

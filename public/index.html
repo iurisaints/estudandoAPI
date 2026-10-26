@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estudando API · Produtos e categorias</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <aside id="painel" aria-label="Código da ação">
+    <div class="painel-topo">
+      <p class="kicker">Código desta ação</p>
+      <h2 id="painel-titulo">Carregando…</h2>
+      <p id="painel-resumo">Lendo os arquivos do servidor para mostrar o código real.</p>
+      <p class="painel-dica">De cima para baixo é a ordem em que as funções rodam. executar() só atualiza este painel. Quem faz o HTTP é requisicao().</p>
+      <a class="atalho so-mobile" href="#conteudo">Ir para a tela</a>
+      <div id="painel-chips" class="chips"></div>
+    </div>
+
+    <div id="painel-passos" class="painel-passos"></div>
+
+    <div id="painel-resposta" class="painel-resposta" aria-live="polite"></div>
+
+    <footer class="painel-rodape">
+      <button type="button" id="botao-config-banco">Ver config do banco</button>
+    </footer>
+  </aside>
+
+  <main id="conteudo">
+    <header class="topo">
+      <div>
+        <p class="kicker">HTML, CSS e JavaScript puro</p>
+        <h1>Produtos e categorias</h1>
+        <p class="lede">Duas tabelas, uma API e o código de cada passo no painel escuro. Cadastre, edite, apague e filtre. O que rodar aparece do lado esquerdo, função por função.</p>
+      </div>
+      <div class="topo-acoes">
+        <a class="atalho so-mobile" href="#painel">Ver o código</a>
+        <nav id="navegacao" aria-label="Telas">
+          <button type="button" data-tela="categorias" aria-pressed="true">Categorias</button>
+          <button type="button" data-tela="produtos" aria-pressed="false">Produtos</button>
+          <button type="button" data-tela="vitrine" aria-pressed="false">Ver produtos</button>
+        </nav>
+      </div>
+    </header>
+
+    <section id="tela-categorias" class="tela ativa">
+      <form id="form-categoria" class="cartao" method="post" action="#" autocomplete="off">
+        <h2 id="titulo-categoria">Nova categoria</h2>
+        <p id="aviso-categoria" class="aviso" hidden></p>
+        <label>
+          <span class="rotulo">Nome</span>
+          <input id="categoria-nome" name="nome" maxlength="80" placeholder="Livros">
+        </label>
+        <label>
+          <span class="rotulo">Descrição</span>
+          <textarea id="categoria-descricao" name="descricao" maxlength="280" placeholder="Papel e digitais"></textarea>
+        </label>
+        <div class="botoes">
+          <button type="submit" id="botao-categoria" class="botao">Cadastrar categoria</button>
+          <button type="button" id="cancelar-categoria" class="botao secundario" hidden>Cancelar</button>
+        </div>
+      </form>
+
+      <div class="bloco-lista">
+        <h2>Categorias cadastradas</h2>
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-categorias"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tela-produtos" class="tela">
+      <form id="form-produto" class="cartao" method="post" action="#" autocomplete="off">
+        <h2 id="titulo-produto">Novo produto</h2>
+        <p id="aviso-produto" class="aviso" hidden></p>
+        <label>
+          <span class="rotulo">Nome</span>
+          <input id="produto-nome" name="nome" maxlength="80" placeholder="Caneca">
+        </label>
+        <div class="dupla">
+          <label>
+            <span class="rotulo">Preço</span>
+            <input id="produto-preco" name="preco" type="number" min="0" step="0.01" placeholder="49.90">
+            <small class="dica">Ponto para os centavos, por exemplo 49.90.</small>
+          </label>
+          <label>
+            <span class="rotulo">Estoque</span>
+            <input id="produto-estoque" name="estoque" type="number" min="0" step="1" placeholder="15">
+          </label>
+        </div>
+        <label>
+          <span class="rotulo">Categoria</span>
+          <select id="produto-categoria" name="categoria_id">
+            <option value="">Escolha uma categoria</option>
+          </select>
+        </label>
+        <label>
+          <span class="rotulo">Descrição</span>
+          <textarea id="produto-descricao" name="descricao" maxlength="280" placeholder="Cerâmica de 300 ml"></textarea>
+        </label>
+        <div class="botoes">
+          <button type="submit" id="botao-produto" class="botao">Cadastrar produto</button>
+          <button type="button" id="cancelar-produto" class="botao secundario" hidden>Cancelar</button>
+        </div>
+      </form>
+
+      <div class="bloco-lista">
+        <h2>Produtos cadastrados</h2>
+        <p class="resumo">Para filtrar por categoria, use a tela Ver produtos.</p>
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Categoria</th>
+                <th scope="col" class="numero">Preço</th>
+                <th scope="col" class="numero">Estoque</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-produtos"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tela-vitrine" class="tela">
+      <div class="bloco-lista">
+        <h2>Produtos</h2>
+        <p id="resumo-vitrine" class="resumo"></p>
+        <div id="filtros-categoria" class="filtros"></div>
+        <p id="aviso-vitrine" class="aviso" hidden></p>
+        <div id="grade-produtos" class="grade"></div>
+      </div>
+    </section>
+
+    <p class="rodape-app">O banco é o arquivo <code>data/loja.sqlite</code>. Se não houver categorias quando o servidor sobe, ele grava uns exemplos.</p>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/painel.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
